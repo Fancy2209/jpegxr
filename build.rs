@@ -46,14 +46,7 @@ fn main() {
     let mut build = cc::Build::new();
     build.files(src);
     let target = std::env::var("TARGET").unwrap();
-    if target.contains("android")
-    {
-
-
-        build
-        .compiler("/usr/local/lib/android/sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/bin/clang");
-        
-    }
+    
     build
         .include("jxrlib")
         .include("jxrlib/common/include")
@@ -61,7 +54,14 @@ fn main() {
         .include("jxrlib/jxrgluelib")
         .include("jxrlib/jxrtestlib")
         .define("__ANSI__", None)
-        .define("DISABLE_PERF_MEASUREMENT", None)
+        .define("DISABLE_PERF_MEASUREMENT", None);
+         if target.contains("android")
+        {
+        build
+           .flag("--bindgen");
+         }
+    
+        build
         // quiet the build on mac with clang
         .flag_if_supported("-Wno-constant-conversion")
         .flag_if_supported("-Wno-unused-const-variable")
