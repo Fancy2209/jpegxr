@@ -44,6 +44,10 @@ fn main() {
         "jxrlib/jxrtestlib/JXRTestYUV.c",
     ];
     let mut build = cc::Build::new();
+    let target = std::env::var("TARGET").unwrap()
+        if target == "aarch64-linux-android" || target == "armv7-linux-androideabi" || target == "i686-linux-android" || target == "x86_64-linux-android" {
+        build.compiler("clang");
+    }
     build
         .files(src)
         .include("jxrlib")
@@ -76,7 +80,7 @@ fn main() {
         .flag_if_supported("-Wno-unused-but-set-variable")
         .opt_level(2);
 
-    let target = std::env::var("TARGET").unwrap();
+    ;
     if target == "wasm32-unknown-unknown" {
         // relying on our fake libc fragment
         build
@@ -85,9 +89,6 @@ fn main() {
             .flag("src/fakelibc")
             .file("src/fakelibc/impl.c")
             .file("src/fakelibc/qsort.c");
-    } 
-    else if target == "aarch64-linux-android" || target == "armv7-linux-androideabi" || target == "i686-linux-android" || target == "x86_64-linux-android" {
-        build.compiler("clang");
     }
 
     build
