@@ -46,15 +46,16 @@ fn main() {
     let mut build = cc::Build::new();
     build.files(src);
     let target = std::env::var("TARGET").unwrap();
-    let android_ndk_home = env::var("ANDROID_NDK_HOME").expect("ANDROID_NDK_HOME not set");
-    let ndk_sysroot = format!("{}/toolchains/llvm/prebuilt/linux-x86_64/sysroot", android_ndk_home);
-    env::set_var("NDK_SYSROOT", ndk_sysroot);
     if target.contains("android")
     {
+        env::set_var("CARGO_NDK_SYSROOT_LIBS_PATH", std::env::var("NDK_SYSROOT_LIBS_PATH").unwrap());
+        env::set_var("CARGO_NDK_SYSROOT_PATH", std::env::var("NDK_SYSROOT_PATH").unwrap());
+        env::set_var("CARGO_TARGET_AARCH64_LINUX_ANDROID_AR", std::env::var("TARGET_AARCH64_LINUX_ANDROID_AR").unwrap());
+        env::set_var("CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER", std::env::var("TARGET_AARCH64_LINUX_ANDROID_LINKER").unwrap());
+
         build
         .compiler("clang")
-        .flag("--sysroot")
-        .flag(env::var("NDK_SYSROOT").unwrap());
+        
     }
     build
         .include("jxrlib")
