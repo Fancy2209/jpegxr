@@ -51,7 +51,6 @@ fn main() {
     }
     build
         .files(src)
-        .compiler("clang");
         .include("jxrlib")
         .include("jxrlib/common/include")
         .include("jxrlib/image/sys")
