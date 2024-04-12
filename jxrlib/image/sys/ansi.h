@@ -48,9 +48,13 @@
 // Note these are modified from the original library,
 // which made its own defs that were wrong on Linux.
 #include <stdint.h>
+#ifndef __WINDOWS__
+#define UINTPTR_T unsigned long
+#define INTPTR_T long
+#else
 #define UINTPTR_T uintptr_t
 #define INTPTR_T intptr_t
-
+#endif
 
 //================================
 // quantization optimization
