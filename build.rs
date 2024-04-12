@@ -48,14 +48,10 @@ fn main() {
     let target = std::env::var("TARGET").unwrap();
     if target.contains("android")
     {
-        env::set_var("CARGO_NDK_SYSROOT_LIBS_PATH", "/usr/local/lib/android/sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android");
-        env::set_var("CARGO_NDK_SYSROOT_PATH", "/usr/local/lib/android/sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar");
-        env::set_var("CARGO_NDK_SYSROOT_TARGET", "aarch64-linux-android");
-        env::set_var("CARGO_TARGET_AARCH64_LINUX_ANDROID_AR", "/usr/local/lib/android/sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar");
-        env::set_var("CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER", "/home/runner/.cargo/bin/cargo-ndk");
+
 
         build
-        .compiler("clang");
+        .compiler("/usr/local/lib/android/sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/bin/clang");
         
     }
     build
