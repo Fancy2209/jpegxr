@@ -87,8 +87,7 @@ fn main() {
             .file("src/fakelibc/qsort.c");
     } 
     else if target == "aarch64-linux-android" || target == "armv7-linux-androideabi" || target == "i686-linux-android" || target == "x86_64-linux-android" {
-        build
-             .compiler("clang")
+        build.compiler("clang");
     }
 
     build
