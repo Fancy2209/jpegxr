@@ -54,7 +54,7 @@ fn main() {
         env::set_var("CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER", std::env::var("TARGET_AARCH64_LINUX_ANDROID_LINKER").unwrap());
 
         build
-        .compiler("clang")
+        .compiler("clang");
         
     }
     build
